@@ -1,37 +1,26 @@
-// swift-tools-version:5.7
+// swift-tools-version:5.0
 import PackageDescription
 
 let package = Package(
     name: "SocketRocket",
     platforms: [
-        .iOS("11.0"),
-        .macOS("10.13"),
-        .tvOS("11.0")
+        .iOS(.v9),
+        .macOS(.v10_10),
+        .tvOS(.v9),
     ],
     products: [
         .library(
             name: "SocketRocket",
-            targets: ["SocketRocket"]
-        )
+            type: .dynamic,
+            targets: ["SocketRocket"]),
     ],
     dependencies: [],
     targets: [
         .target(
             name: "SocketRocket",
             path: "SocketRocket",
-            exclude: [],
-            sources: ["."],
-            publicHeadersPath: ".",
             cSettings: [
-                .headerSearchPath("."),
-                .define("USE_ICU_CORE", to: "1")
-            ],
-            linkerSettings: [
-                .linkedFramework("CFNetwork", .when(platforms: [.iOS, .tvOS])),
-                .linkedFramework("Security"),
-                .linkedFramework("CoreServices", .when(platforms: [.macOS])),
-                .linkedLibrary("icucore")
-            ]
-        )
+                .headerSearchPath("Internal/**"),
+            ]),
     ]
 )
